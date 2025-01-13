@@ -10,7 +10,7 @@ const ProductProvider = ({children}) => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch('https://fakestoreapi.com/products');
+      const response = await fetch('https://fakestoreapi.com/products', {mode: "cors"});
       const data = await response.json();
       setProduct(data);
     };
