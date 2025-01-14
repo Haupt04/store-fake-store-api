@@ -6,6 +6,15 @@ export const CartContext = createContext();
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [itemAmount, setItemAmount] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  // Keep track of price 
+  useEffect(() => {
+    const total = cart.reduce((accumulator, currentItem) => {
+      return accumulator + currentItem.price * currentItem.amount;
+    }, 0);
+    setTotal(total);
+  })
 
   // update cart amount 
   useEffect(() => {
@@ -81,7 +90,7 @@ const CartProvider = ({ children }) => {
   ;}
 
   return (
-  <CartContext.Provider value={{cart, addToCart, removeFromCart, clearCart, increaseAmount, decreaseAmount, itemAmount,setItemAmount}}>
+  <CartContext.Provider value={{cart, addToCart, removeFromCart, clearCart, increaseAmount, decreaseAmount, itemAmount,setItemAmount, total}}>
     {children}
   </CartContext.Provider>
     )
